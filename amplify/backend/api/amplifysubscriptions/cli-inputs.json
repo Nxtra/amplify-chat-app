@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "amplifysubscriptions",
+    "serviceName": "AppSync",
+    "gqlSchemaPath": "/Users/nivh/Training/amplify-subscriptions/amplify/backend/api/amplifysubscriptions/schema.graphql",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authamplifysubscriptions58b34d18"
+    }
+  }
+}
