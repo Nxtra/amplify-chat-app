@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { API, graphqlOperation } from "aws-amplify";
-import { createTodo } from "../graphql/mutations";
-import { listTodos } from "../graphql/queries";
+import * as todoService from "../service/todoService";
 
 const useTodos = () => {
   const [todos, setTodos] = useState([]);
@@ -16,8 +15,7 @@ const useTodos = () => {
 
   async function fetchTodos() {
     try {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
-      const todos = todoData.data.listTodos.items;
+      const todos = await todoService.listTodos();
       setTodos(todos);
     } catch (err) {
       console.log("error fetching todos");
@@ -27,7 +25,7 @@ const useTodos = () => {
   async function addTodo(todo) {
     try {
       setTodos([...todos, todo]);
-      await API.graphql(graphqlOperation(createTodo, { input: todo }));
+      await todoService.addTodo(todo);
     } catch (err) {
       console.log("error creating todo:", err);
     }
