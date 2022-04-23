@@ -2,47 +2,36 @@
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
 import { createTodo } from "./graphql/mutations";
-import { listTodos } from "./graphql/queries";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import TodoList from "./TodoList";
 import awsExports from "./aws-exports";
+import useTodos from "./hooks/useTodos";
 Amplify.configure(awsExports);
 
 const initialState = { name: "", description: "" };
 
 const App = () => {
   const [formState, setFormState] = useState(initialState);
-  const [todos, setTodos] = useState([]);
+  const { todos, fetchTodos, addTodo } = useTodos();
 
   useEffect(() => {
     fetchTodos();
   }, []);
 
-  function setInput(key, value) {
-    setFormState({ ...formState, [key]: value });
-  }
-
-  async function fetchTodos() {
-    try {
-      const todoData = await API.graphql(graphqlOperation(listTodos));
-      const todos = todoData.data.listTodos.items;
-      setTodos(todos);
-    } catch (err) {
-      console.log("error fetching todos");
-    }
-  }
-
-  async function addTodo() {
+  async function addTodoToList() {
     try {
       if (!formState.name || !formState.description) return;
       const todo = { ...formState };
-      setTodos([...todos, todo]);
+      addTodo(todo);
       setFormState(initialState);
-      await API.graphql(graphqlOperation(createTodo, { input: todo }));
     } catch (err) {
       console.log("error creating todo:", err);
     }
+  }
+
+  function setInput(key, value) {
+    setFormState({ ...formState, [key]: value });
   }
 
   return (
@@ -67,7 +56,7 @@ const App = () => {
             value={formState.description}
             placeholder="Description"
           />
-          <button style={styles.button} onClick={addTodo}>
+          <button style={styles.button} onClick={addTodoToList}>
             Create Todo
           </button>
           {todos && <TodoList todos={todos} />}

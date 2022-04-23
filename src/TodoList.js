@@ -1,12 +1,16 @@
 import React from "react";
 
 const TodoList = ({ todos }) => {
-  return todos.map((todo, index) => (
-    <div key={todo.id ? todo.id : index} style={styles.todo}>
-      <p style={styles.todoName}>{todo.name}</p>
-      <p style={styles.todoDescription}>{todo.description}</p>
-    </div>
-  ));
+  return (
+    <>
+      {todos.map((todo, index) => (
+        <div key={todo.id ? todo.id : index} style={styles.todo}>
+          <p style={styles.todoName}>{todo.name}</p>
+          <p style={styles.todoDescription}>{todo.description}</p>
+        </div>
+      ))}
+    </>
+  );
 };
 
 const styles = {
