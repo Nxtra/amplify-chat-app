@@ -1,15 +1,21 @@
 import React from "react";
+import { ScrollView } from "@aws-amplify/ui-react";
 
 const TodoList = ({ todos }) => {
   return (
-    <>
+    <ScrollView
+      border="thick double #32a1ce"
+      height="20rem"
+      padding="0.5rem"
+      orientation="vertical"
+    >
       {todos.map((todo, index) => (
         <div key={todo.id ? todo.id : index} style={styles.todo}>
           <p style={styles.todoName}>{todo.name}</p>
           <p style={styles.todoDescription}>{todo.description}</p>
         </div>
       ))}
-    </>
+    </ScrollView>
   );
 };
 
