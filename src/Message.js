@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 const Message = ({ message }) => {
   return (
@@ -9,12 +10,25 @@ const Message = ({ message }) => {
         gap: "0.2rem",
         justifyContent: "center",
         alignItems: "flex-start",
-        padding: "0.2rem",
+        padding: "0.4rem",
         border: "1px solid black",
         borderRadius: "0.2rem",
       }}
     >
-      <div style={{ fontWeight: "700" }}>{message.senderId}</div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
+        <div style={{ fontWeight: "700" }}>{message.senderId}</div>
+        <div style={{ fontStyle: "italic" }}>
+          {moment(message.createdAt).format("YYYY-DD-MM @ HH:mm")}
+        </div>
+      </div>
+
       <div>{`> ${message.text}`}</div>
     </div>
   );
