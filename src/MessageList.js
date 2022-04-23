@@ -1,5 +1,6 @@
 import React from "react";
 import { ScrollView } from "@aws-amplify/ui-react";
+import Message from "./Message";
 
 const MessageList = ({ messages }) => {
   return (
@@ -10,9 +11,7 @@ const MessageList = ({ messages }) => {
       orientation="vertical"
     >
       {messages.map((message, index) => (
-        <div key={message.id ? message.id : index} style={styles.message}>
-          <p style={styles.messageText}>{message.text}</p>
-        </div>
+        <Message key={message.id} message={message} />
       ))}
     </ScrollView>
   );
