@@ -5,7 +5,7 @@ import { createTodo } from "./graphql/mutations";
 import { listTodos } from "./graphql/queries";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-
+import TodoList from "./TodoList";
 import awsExports from "./aws-exports";
 Amplify.configure(awsExports);
 
@@ -70,12 +70,7 @@ const App = () => {
           <button style={styles.button} onClick={addTodo}>
             Create Todo
           </button>
-          {todos.map((todo, index) => (
-            <div key={todo.id ? todo.id : index} style={styles.todo}>
-              <p style={styles.todoName}>{todo.name}</p>
-              <p style={styles.todoDescription}>{todo.description}</p>
-            </div>
-          ))}
+          {todos && <TodoList todos={todos} />}
         </div>
       )}
     </Authenticator>
