@@ -6,19 +6,24 @@ const useTodos = () => {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
+    console.log("Todos in hook", todos);
+  }, [todos]);
+
+  useEffect(() => {
     const getExistingTodos = async () => {
-      const tds = await fetchTodos();
-      setTodos(tds);
+      await fetchTodos();
     };
     getExistingTodos();
   }, []);
 
   useEffect(() => {
-    const subscribe = async () => {
-      await todoService.subscribeNewTodo(fetchTodos);
-    };
-    subscribe();
-  }, []);
+    if (todos) {
+      const subscribe = async () => {
+        await todoService.subscribeNewTodo(fetchTodos, todos);
+      };
+      subscribe();
+    }
+  }, [todos]);
 
   async function fetchTodos() {
     try {

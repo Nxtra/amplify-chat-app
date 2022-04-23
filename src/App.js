@@ -13,11 +13,7 @@ const initialState = { name: "", description: "" };
 
 const App = () => {
   const [formState, setFormState] = useState(initialState);
-  const { todos, fetchTodos, addTodo } = useTodos();
-
-  useEffect(() => {
-    fetchTodos();
-  }, []);
+  const { todos, addTodo } = useTodos();
 
   async function addTodoToList() {
     try {
