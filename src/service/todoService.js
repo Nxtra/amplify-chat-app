@@ -15,13 +15,12 @@ export const addTodo = async (todo) => {
   await API.graphql(graphqlOperation(mutations.createTodo, { input: todo }));
 };
 
-export const subscribeNewTodo = async (action, todos) => {
+export const subscribeNewTodo = async (action) => {
   try {
     const updatedTodo = API.graphql({
       query: subscriptions.onCreateTodo,
     }).subscribe({
       next: (data) => {
-        console.log(todos);
         console.log("Subscription was triggered");
         console.log("Subscription received data", data.value.data.onCreateTodo);
         action(data.value.data.onCreateTodo);

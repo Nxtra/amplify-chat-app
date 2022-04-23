@@ -19,7 +19,7 @@ const useTodos = () => {
   useEffect(() => {
     if (todos) {
       const subscribe = async () => {
-        await todoService.subscribeNewTodo(fetchTodos, todos);
+        await todoService.subscribeNewTodo(fetchTodos);
       };
       subscribe();
     }
