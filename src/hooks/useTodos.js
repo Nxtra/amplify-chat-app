@@ -13,6 +13,13 @@ const useTodos = () => {
     getExistingTodos();
   }, []);
 
+  useEffect(() => {
+    const subscribe = async () => {
+      await todoService.subscribeNewTodo(fetchTodos);
+    };
+    subscribe();
+  }, []);
+
   async function fetchTodos() {
     try {
       const todos = await todoService.listTodos();
@@ -24,7 +31,6 @@ const useTodos = () => {
 
   async function addTodo(todo) {
     try {
-      setTodos([...todos, todo]);
       await todoService.addTodo(todo);
     } catch (err) {
       console.log("error creating todo:", err);
