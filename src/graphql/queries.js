@@ -1,31 +1,39 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getMessage = /* GraphQL */ `
+  query GetMessage($id: ID!, $createdAt: AWSDateTime!) {
+    getMessage(id: $id, createdAt: $createdAt) {
       id
-      name
-      description
-      tmp
       createdAt
+      senderId
+      text
       updatedAt
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listMessages = /* GraphQL */ `
+  query ListMessages(
+    $id: ID
+    $createdAt: ModelStringKeyConditionInput
+    $filter: ModelMessageFilterInput
     $limit: Int
     $nextToken: String
+    $sortDirection: ModelSortDirection
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listMessages(
+      id: $id
+      createdAt: $createdAt
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+      sortDirection: $sortDirection
+    ) {
       items {
         id
-        name
-        description
-        tmp
         createdAt
+        senderId
+        text
         updatedAt
       }
       nextToken

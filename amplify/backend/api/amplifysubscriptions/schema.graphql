@@ -1,6 +1,6 @@
-type Todo @model @auth(rules: [{ allow: private }]) {
-  id: ID!
-  name: String!
-  description: String
-  tmp: String
+type Message @model @auth(rules: [{ allow: private }]) {
+  id: ID! @primaryKey(sortKeyFields: ["createdAt"])
+  createdAt: AWSDateTime!
+  senderId: ID!
+  text: String
 }

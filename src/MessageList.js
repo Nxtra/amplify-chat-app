@@ -1,7 +1,7 @@
 import React from "react";
 import { ScrollView } from "@aws-amplify/ui-react";
 
-const TodoList = ({ todos }) => {
+const MessageList = ({ messages }) => {
   return (
     <ScrollView
       border="thick double #32a1ce"
@@ -9,10 +9,9 @@ const TodoList = ({ todos }) => {
       padding="0.5rem"
       orientation="vertical"
     >
-      {todos.map((todo, index) => (
-        <div key={todo.id ? todo.id : index} style={styles.todo}>
-          <p style={styles.todoName}>{todo.name}</p>
-          <p style={styles.todoDescription}>{todo.description}</p>
+      {messages.map((message, index) => (
+        <div key={message.id ? message.id : index} style={styles.message}>
+          <p style={styles.messageText}>{message.text}</p>
         </div>
       ))}
     </ScrollView>
@@ -28,7 +27,7 @@ const styles = {
     justifyContent: "center",
     padding: 20,
   },
-  todo: { marginBottom: 15 },
+  message: { marginBottom: 15 },
   input: {
     border: "none",
     backgroundColor: "#ddd",
@@ -36,8 +35,8 @@ const styles = {
     padding: 8,
     fontSize: 18,
   },
-  todoName: { fontSize: 20, fontWeight: "bold" },
-  todoDescription: { marginBottom: 0 },
+  messageName: { fontSize: 20, fontWeight: "bold" },
+  messageText: { marginBottom: 0 },
   button: {
     backgroundColor: "black",
     color: "white",
@@ -47,4 +46,4 @@ const styles = {
   },
 };
 
-export default TodoList;
+export default MessageList;

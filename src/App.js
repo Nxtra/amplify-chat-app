@@ -1,28 +1,28 @@
 /* src/App.js */
 import React, { useEffect, useState } from "react";
 import Amplify, { API, graphqlOperation } from "aws-amplify";
-import { createTodo } from "./graphql/mutations";
+import { createMessage } from "./graphql/mutations";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
-import TodoList from "./TodoList";
+import MessageList from "./MessageList";
 import awsExports from "./aws-exports";
-import useTodos from "./hooks/useTodos";
+import useMessages from "./hooks/useMessages";
 Amplify.configure(awsExports);
 
-const initialState = { name: "", description: "" };
+const initialState = { text: "" };
 
 const App = () => {
   const [formState, setFormState] = useState(initialState);
-  const { todos, addTodo } = useTodos();
+  const { messages, addMessage } = useMessages();
 
-  async function addTodoToList() {
+  async function addMessageToList() {
     try {
-      if (!formState.name || !formState.description) return;
-      const todo = { ...formState };
-      addTodo(todo);
+      if (!formState.text) return;
+      const message = { ...formState };
+      addMessage(message);
       setFormState(initialState);
     } catch (err) {
-      console.log("error creating todo:", err);
+      console.log("error creating message:", err);
     }
   }
 
@@ -39,23 +39,17 @@ const App = () => {
             Sign out
           </button>
           <br />
-          <h2>Amplify Todos</h2>
+          <h2>Send message</h2>
           <input
-            onChange={(event) => setInput("name", event.target.value)}
+            onChange={(event) => setInput("text", event.target.value)}
             style={styles.input}
-            value={formState.name}
-            placeholder="Name"
+            value={formState.text}
+            placeholder="Message text.."
           />
-          <input
-            onChange={(event) => setInput("description", event.target.value)}
-            style={styles.input}
-            value={formState.description}
-            placeholder="Description"
-          />
-          <button style={styles.button} onClick={addTodoToList}>
-            Create Todo
+          <button style={styles.button} onClick={addMessageToList}>
+            Create Message
           </button>
-          {todos && <TodoList todos={todos} />}
+          {messages && <MessageList messages={messages} />}
         </div>
       )}
     </Authenticator>
@@ -71,7 +65,7 @@ const styles = {
     justifyContent: "center",
     padding: 20,
   },
-  todo: { marginBottom: 15 },
+  message: { marginBottom: 15 },
   input: {
     border: "none",
     backgroundColor: "#ddd",
@@ -79,8 +73,7 @@ const styles = {
     padding: 8,
     fontSize: 18,
   },
-  todoName: { fontSize: 20, fontWeight: "bold" },
-  todoDescription: { marginBottom: 0 },
+  messagetext: { marginBottom: 0 },
   button: {
     backgroundColor: "black",
     color: "white",
